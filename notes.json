@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Team sync notes",
+    "content": "Discuss sprint goals and blockers for the week.",
+    "tag": "Meeting"
+  },
+  {
+    "title": "Grocery list",
+    "content": "Milk, bread, eggs, coffee, olive oil.",
+    "tag": "Shopping"
+  },
+  {
+    "title": "App idea",
+    "content": "A note-taking app with tag-based filtering.",
+    "tag": "Ideas"
+  },
+  {
+    "title": "Trip to Lviv",
+    "content": "Book train tickets and a hotel for the weekend.",
+    "tag": "Travel"
+  },
+  {
+    "title": "Monthly budget",
+    "content": "Review expenses and update the savings plan.",
+    "tag": "Finance"
+  },
+  {
+    "title": "Morning run",
+    "content": "5 km run before work, three times a week.",
+    "tag": "Health"
+  },
+  {
+    "title": "Pay rent",
+    "content": "Transfer rent before the 5th of the month.",
+    "tag": "Important"
+  },
+  {
+    "title": "Read Express docs",
+    "content": "Go through routing and middleware sections.",
+    "tag": "Todo"
+  }
+]
