@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: nodejs-hw-notes
+    runtime: node
+    branch: 02-mongodb
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: MONGO_URL
+        sync: false
