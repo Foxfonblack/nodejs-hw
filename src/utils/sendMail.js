@@ -10,6 +10,11 @@ const transporter = nodemailer.createTransport({
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASSWORD,
   },
+  // Force IPv4: many cloud hosts (e.g. Render) have broken IPv6 egress,
+  // which makes SMTP connections hang and time out (ETIMEDOUT on CONN).
+  family: 4,
+  connectionTimeout: 20000,
+  greetingTimeout: 20000,
 });
 
 export const sendEmail = async ({ to, subject, html }) => {
