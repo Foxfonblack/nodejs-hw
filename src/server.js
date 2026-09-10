@@ -1,3 +1,5 @@
+import net from 'node:net';
+
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
@@ -23,6 +25,33 @@ const bootstrap = async () => {
   app.use(express.json());
   app.use(cookieParser());
   app.use(cors({ credentials: true, origin: true }));
+
+  // TEMP diagnostic: which outbound channels does this host allow?
+  app.get('/_netcheck', async (req, res) => {
+    const targets = [
+      ['gmail:465', 'smtp.gmail.com', 465],
+      ['gmail:587', 'smtp.gmail.com', 587],
+      ['brevo:587', 'smtp-relay.brevo.com', 587],
+      ['brevo:2525', 'smtp-relay.brevo.com', 2525],
+      ['brevoApi:443', 'api.brevo.com', 443],
+      ['resendApi:443', 'api.resend.com', 443],
+    ];
+    const test = ([label, host, port]) =>
+      new Promise((resolve) => {
+        const started = Date.now();
+        const sock = net.connect({ host, port, family: 4 });
+        sock.setTimeout(8000);
+        const done = (result) => {
+          sock.destroy();
+          resolve(`${label}=${result}(${Date.now() - started}ms)`);
+        };
+        sock.on('connect', () => done('OPEN'));
+        sock.on('timeout', () => done('TIMEOUT'));
+        sock.on('error', (e) => done(e.code || 'ERR'));
+      });
+    const results = await Promise.all(targets.map(test));
+    res.json({ results });
+  });
 
   app.use(authRoutes);
   app.use(userRoutes);
