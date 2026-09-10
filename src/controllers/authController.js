@@ -132,6 +132,12 @@ export const requestResetEmail = async (req, res) => {
     });
   } catch (error) {
     console.error('sendEmail failed:', error);
+    if (req.query.debug === '1') {
+      throw createHttpError(
+        500,
+        `DIAG code=${error.code} cmd=${error.command} msg=${error.message}`,
+      );
+    }
     throw createHttpError(
       500,
       'Failed to send the email, please try again later.',
